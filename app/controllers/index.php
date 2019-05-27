@@ -8,17 +8,9 @@ class indexController extends uni{
 	
 	
 	public function index(){
-		$res= Db::name('test')
-		->paginate(5)
-		->where('id > ?',10)
-		->fields('id,name');
-	
-		
-		//dump($res[0]);
-		//dump($res[1]);
-		
-		// $res=Db::name('test')->page(3,3)->getall();
-		// dump($res);
+		//dump(!!cache('wo','lllll说的是当时的士大夫史蒂夫2222'));
+		//dump(cache('wo',null));
+		cache('rm_all');
 	}
 	public function wo(){
 		$this->res= Db::name('test')

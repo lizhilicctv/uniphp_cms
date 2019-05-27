@@ -32,9 +32,9 @@ class commentController extends uni{
 			$info=Db::name('comment')->where('id = ?',$_POST['id'])->update($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
-				$this->success('添加成功',2);
+				$this->success('修改成功',2);
 			}else{
-				$this->error($checker->error);
+				$this->error('修改失败');
 			}
 		}
 		$this->data=Db::name('comment')

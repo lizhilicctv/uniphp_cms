@@ -18,9 +18,9 @@
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l">
 					<a href="javascript:;" onclick="catesort()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 更新排序</a> 
-					<a class="btn btn-primary radius" onclick="system_category_add('添加广告','{:url('adposition/add')}','1000','600')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加广告</a>
+					<a class="btn btn-primary radius" onclick="system_category_add('添加广告','<?php echo u('adposition','add'); ?>','1000','600')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加广告</a>
 				</span>
-				<span class="r">共有数据：<strong>{$count1}</strong> 条</span> 
+				<span class="r">共有数据：<strong><?php echo $this->count; ?></strong> 条</span> 
 			</div>
 			<div class="mt-20">
 				<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -31,7 +31,6 @@
 							<th width="150">图片</th>
 							<th width="150">广告名称</th>
 							<th width="50">广告链接</th>
-							<th width="50">所属栏目</th>
 							<th width="50">广告状态</th>
 							<th width="10">操作</th>
 						</tr>
@@ -39,27 +38,27 @@
 					<tbody>
 						<?php foreach($this->data[0] as $k=>$v){ ?>
 						<tr class="text-c">
-							<td>{$user.id}</td>
-							<td style="width: 15px;"><input type="text" name="{$user.id}" class="input-text lizhi"  value="{$user.sort}"></td>
-							<td><a href="{$user.url}" target="_blank"><img height="80" src="{$user.pic}" ></a></td>
-							<td>{$user.ad_title}</td>
-							<td>{$user.url ? $user.url : '没有填写图片地址'}</td>
+							<td><?php echo $v['id'] ?></td>
+							<td style="width: 15px;"><input type="text" name="<?php echo $v['id'] ?>" class="input-text lizhi"  value="<?php echo $v['sort'] ?>"></td>
+							<td><a href="<?php echo $v['url'] ?>" target="_blank"><img height="80" src="<?php echo $v['pic'] ?>" ></a></td>
+							<td><?php echo $v['ad_title'] ?></td>
+							<td><?php echo $v['url'] ?? '没有填写图片地址' ?></td>
 							  
-							<td>{$user.catename? $user.catename : '没有关联栏目'}</td>
-							<td class="td-status">{switch name="user.isopen" }
-					    {case value="1"}<span class="label label-success radius">已启用</span>{/case}
-					    {case value="0"}<span class="label label-default radius">已禁用</span>{/case}
-					{/switch}</td>
-							<td class="td-manage">
-								{if condition="$user.isopen == 1 "} 
-								<a style="text-decoration:none" onClick="admin_stop(this,{$user.id})" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
-								{else /}
-								<a onClick="admin_start(this,{$user.id})" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
-								{/if}
-								<a title="编辑" href="javascript:;" onclick="system_category_edit('广告编辑','{:url(\'adposition/edit\',[\'id\'=>$user.id])}','1','1000','600')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-								<?php if($delAuth){ ?>
-								<a title="删除" href="javascript:;" onclick="system_category_del(this,{$user.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							<td class="td-status">
+								<?php if($v['isopen'] == 1){ ?>
+									<span class="label label-success radius">已启用</span>
+								<?php }else{ ?>
+									<span class="label label-default radius">已禁用</span>
 								<?php } ?>
+							</td>
+							<td class="td-manage">
+								<?php if($v['isopen'] == 1){ ?>
+									<a style="text-decoration:none" onClick="admin_stop(this,<?php echo $v['id']; ?>)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+								<?php }else{ ?>
+									<a onClick="admin_start(this,<?php echo $v['id']; ?>)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>
+								<?php } ?>
+								<a title="编辑" href="javascript:;" onclick="system_category_edit('广告编辑','<?php echo u('adposition','edit',$v['id']); ?>','1','1000','600')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+								<a title="删除" href="javascript:;" onclick="system_category_del(this,<?php echo $v['id']; ?>)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 							</td>
 						</tr>
 						<?php } ?>
@@ -90,7 +89,7 @@ function system_category_edit(title,url,id,w,h){
 function system_category_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.post(
-			"{:url('adposition/ajax')}",
+			"<?php echo u('adposition','ajax');?>",
 		{
 			id:id,
 			type:'adposition_del',
@@ -118,7 +117,7 @@ function catesort(){
 	 		idarr.push(x[i].name);
 	 	}
 		$.post(
-			"{:url('adposition/ajax')}",
+			"<?php echo u('adposition','ajax');?>",
 		{
 			'sort':sortarr,
 			'id':idarr,
@@ -142,7 +141,7 @@ function admin_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.post(
-			"{:url('adposition/ajax')}",
+			"<?php echo u('adposition','ajax');?>",
 		{
 			id:id,
 			type:'adposition_stop',
@@ -165,7 +164,7 @@ function admin_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
 		//此处请求后台程序，下方是成功后的前台处理……
 		$.post(
-			"{:url('adposition/ajax')}",
+			"<?php echo u('adposition','ajax');?>",
 		{
 			id:id,
 			type:'adposition_start',
@@ -173,7 +172,6 @@ function admin_start(obj,id){
 		function(result){
 	        if(result===0){
 	        	layer.msg('启动失败!',{icon: 5,time:1000});
-
 	        }else{
 	        	$(obj).parents("tr").find(".td-manage").prepend('<a onClick="member_stop(this,{ $user.id})" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
 				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');

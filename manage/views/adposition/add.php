@@ -1,7 +1,7 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 
-<title>友情链接添加</title>
+<title>广告添加</title>
 </head>
 <body>
 <div class="page-container">
@@ -29,25 +29,9 @@
 					</div>
 				</div>
 				
-				<div class="row cl">
-					<label class="form-label col-xs-3 col-sm-2">
-						所属栏目：</label>
-					<div class="formControls col-xs-8 col-sm-9">
-						<span class="select-box" style="width:30%">
-						<select class="select" id="category_id" name="category_id">
-							<option value="">不属于任何栏目</option>
-							{volist name="CategoryRes" id="CategoryRes"}
-							<option value="{$CategoryRes.id}">{$CategoryRes.catename}</option>
-							{/volist}						
-						</select>
-						</span>
-						<span style="padding-right: 20px;color: #AAAAAA;"> * 这里用于商城栏目广告。而且只可以定位到顶级栏目。</span>
-					</div>
-					<div class="col-3">
-					</div>
-				</div>
+				
 				<div class="row cl" id="fimg">
-					<label class="form-label col-xs-4 col-sm-2">广告图片上传：</label>
+					<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>广告图片上传：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<div style="margin-bottom: 20px;">
 							<span class="btn-upload form-group">

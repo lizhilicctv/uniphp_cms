@@ -42,7 +42,7 @@ class linkController extends uni{
 				if($uploadedFile){
 					$_POST['pic']='/'.$uploadedFile;
 				}else{
-					$this->error($uper->error);
+					$this->error('图片上传失败');
 				}
 			}
 			//规整数据
@@ -52,7 +52,7 @@ class linkController extends uni{
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
 				$this->success('添加成功',2);
 			}else{
-				$this->error($checker->error);
+				$this->error('添加失败');
 			}
     	}
       $this->display();
@@ -76,7 +76,7 @@ class linkController extends uni{
 				if($uploadedFile){
 					$_POST['pic']='/'.$uploadedFile;
 				}else{
-					$this->error($uper->error);
+					$this->error('图片上传失败');
 				}
 			}
 			//规整数据
@@ -84,9 +84,9 @@ class linkController extends uni{
 			$info=Db::name('link')->where('id = ?',$_POST['id'])->update($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
-				$this->success('添加成功',2);
+				$this->success('修改成功',2);
 			}else{
-				$this->error($checker->error);
+				$this->error('修改失败');
 			}
 		}
 		$this->data=Db::name('link')->where('id = ?', $this->gets[0])->get();

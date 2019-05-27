@@ -9,14 +9,12 @@ class loginController extends uni{
 			if($_POST['coder'] != getSession('UNIVcode')){
                 return $this->error('验证码输入错误');
             }
-		
 			$log1=[
 				'username'=>$_POST['username'],
 				'ip'=>$ip,
 				'in_time'=>time()
 			];
 			Db::name('log')->add($log1);
-	
 			$info=Db::name('admin')->where('username = ?',$_POST['username'])->get();
 			if($info){
 				if(md5(substr(md5($_POST['password']),0,25).'lizhili')==$info['password']){
@@ -35,9 +33,7 @@ class loginController extends uni{
 			}
 			die;
 		}
-	
 		$this->display();
-	   
 	}
 	public function out()
 	{
@@ -48,7 +44,6 @@ class loginController extends uni{
 	
 	 public function getIp()
 	{
-	
 	    if(!empty($_SERVER["HTTP_CLIENT_IP"]))
 	    {
 	        $cip = $_SERVER["HTTP_CLIENT_IP"];
@@ -68,25 +63,17 @@ class loginController extends uni{
 	    preg_match("/[\d\.]{7,15}/", $cip, $cips);
 	    $cip = isset($cips[0]) ? $cips[0] : 'unknown';
 	    unset($cips);
-	
 	    return $cip;
 	}
 	
 	 public function log(){
-	 	if(request()->isPost()){
-			$data=input('post.');		
-			$data=Db::name('log')
-				    ->where('username','like','%'.$data['key'].'%')
-				    ->order('id','desc')->paginate(15);
-			$this->assign('data',$data);
+	 	if(UNi_POST){
+			$this->data=Db::name('log')->where('username like ?','%'.$_POST['key'].'%')->paginate(15)->order('id desc')->fields();		
 		}else{
-			$data=db('log')->order('id','desc')->paginate(15);
-			$this->assign('data', $data);
+			 $this->data=Db::name('log')->paginate(15)->order('id desc')->fields();
 		}
-		
-		$count1=db('log')->count();
-		$this->assign('count1', $count1);
-	 	return $this->fetch();
+		$this->count=Db::name('log')->count();
+	 	$this->display();
 	 }
 	 //绘制验证码
     public function vcode(){
@@ -100,21 +87,19 @@ class loginController extends uni{
 	 
 	public function ajax()
 	{
-		$data=input('param.');
-		if($data['type']=='log_del'){
-			if(db('log')->delete($data['id'])){
-				return 1;//修改成功返回1
+		if($_POST['type']=='log_all'){
+			foreach($_POST['id'] as $v){
+				Db::name('log')->where('id = ?',$v)->del();
+			}
+			json(1);//修改成功返回1
+		}
+		if($_POST['type']=='log_del'){
+			if(Db::name('log')->where('id = ?',$_POST['id'])->del()){
+				json(1);//修改成功返回1
 			}else{
-				return 0;
+				json(0);
 			}
 		}
-		if($data['type']=='log_all'){
-			if(db('log')->delete($data['id'])){
-				return 1;//修改成功返回1
-			}else{
-				return 0;
-			}
-		}
-		return 0;
+		json(0);
 	}
 }

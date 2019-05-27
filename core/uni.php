@@ -69,6 +69,25 @@ class uni{
 function trimAll($str){$qian=array(" ","　","\t","\n","\r");$hou=array("","","","",""); return str_replace($qian,$hou,$str); }
 function json($data){header('Content-type: application/json');exit(json_encode($data));}
 function jump($jump=null){if(!$jump){header('location:'.UNI_SROOT);}else{header('location:'.$jump);} exit;}
+//缓存方法
+function cache($name,$data='uni_lizhili_123',$time=3600){ //默认过期时间为一个小时
+	if(is_file(UNI_IN.'config'.UNI_DS.'cache.php')){$cache=include(UNI_IN.'config'.UNI_DS.'cache.php');}else{die('cache配置不存在!');}
+	if(!$cache['start']){die('cache 没有开启');}
+	if(is_file(UNI_IN.'cache'.UNI_DS.$cache['type'].'Cacher.php')){require_once UNI_IN.'cache'.UNI_DS.$cache['type'].'Cacher.php';}else{die($cache['type'].'缓存类文件不存在!');}
+	$className = 'uni\\cache\\'.$cache['type'].'Cacher';
+	$cacher   = $className::getInstance($cache);
+	if($name=='rm_all'){//这里是进行清除全部操作
+		return	$cacher->clearCache();
+	}else{
+		if($data == 'uni_lizhili_123'){ //这个是要读取缓存
+			return	$cacher->get($name);
+		}elseif($data==null){ //这个是要删除指定缓存
+			return $cacher->removeCache($name);
+		}else{ //这个是要设置缓存
+			return	$cacher->set($name,$data,$time);
+		}
+	}
+}
 //成功跳转
 function success($jump=null){if(!$jump){header('location:'.UNI_SROOT);}else{header('location:'.$jump);} exit;}
 //开启session
@@ -198,7 +217,6 @@ try{
 		$controllerName = 'index';
 		$controllerFile = UNI_PATH.'/'.UNI_CONTROLLER.'/index.php';
 	}
-
 	require $controllerFile; //引入控制器
 	define('UNI_C', $controllerName);
 	$controllerName = $controllerName.'Controller';
@@ -214,14 +232,13 @@ try{
 	define('UNI_M', $methodName);
 	//define('UNI_SROOT', str_replace(UNI_INDEX, '', $_SERVER['PHP_SELF'])); //解析路径,删除index.html
 	if(substr(explode('/',$_SERVER['PHP_SELF'])[1],-4)=='.php' and explode('/',$_SERVER['PHP_SELF'])[1] != 'index.php'){define('UNI_SROOT', '/'.explode('/',$_SERVER['PHP_SELF'])[1]);}else{define('UNI_SROOT', '');}
-
 	array_shift($router); //删除第一个元素
 	array_shift($router);
 	$controller->gets = $router; //获取参数
 	define('UNI_GETS', $controller->gets);//参数转成数值
 	define('UNI_URL', implode('/', $router));//参数转成数值
-	
+	if(is_file(UNI_IN.UNI_DS.'common.php')){include(UNI_IN.UNI_DS.'common.php');} //执行自定义函数
 	call_user_func(array($controller, '__init'));//执行控制下面的 init方法
 	call_user_func(array($controller, $methodName));//执行方法
-	if(APP_CONFIG['debug']){UNIRunLog();}//执行
+	//if(APP_CONFIG['debug']){UNIRunLog();}//执行
 }catch(UNIException $e){$e->showBug();}

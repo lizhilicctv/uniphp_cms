@@ -43,7 +43,7 @@ class cateController extends uni{
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
 				$this->success('添加成功',2);
 			}else{
-				$this->error($checker->error);
+				$this->error('添加失败');
 			}
     	}
 	  $res=Db::name('cate')->getall();
@@ -70,7 +70,7 @@ class cateController extends uni{
 			//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
 			$this->success('修改成功',2);
 		}else{
-			$this->error($checker->error);
+			$this->error('修改失败');
 		}
     }
 
