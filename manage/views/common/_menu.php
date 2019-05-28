@@ -18,13 +18,13 @@
 			<dd>
 				<ul>
 					<li>
-						<a data-href="{:url('AuthGroup/index')}" data-title="角色管理" href="javascript:void(0)">角色管理</a>
+						<a data-href="<?php echo u('AuthGroup','index'); ?>" data-title="角色管理" href="javascript:void(0)">角色管理</a>
 					</li>
 					<li>
-						<a data-href="{:url('AuthRule/index')}" data-title="权限管理" href="javascript:void(0)">权限管理</a>
+						<a data-href="<?php echo u('AuthRule','index'); ?>" data-title="权限管理" href="javascript:void(0)">权限管理</a>
 					</li>
 					<li>
-						<a data-href="{:url('admin/index')}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a>
+						<a data-href="<?php echo u('admin','index'); ?>" data-title="管理员列表" href="javascript:void(0)">管理员列表</a>
 					</li>
 				</ul>
 			</dd>

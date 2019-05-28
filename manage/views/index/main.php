@@ -7,8 +7,8 @@ include dirname(__FILE__).'/../common/_meta.php';
 <body>
 <div class="page-container">
 	<p class="f-20 text-success">欢迎使用<b>后台管理系统</b> <span class="f-14">v0.1</span>！</p>
-	<p>登录次数：{$count1} </p>
-	<p>本次登录IP：{$log.ip}  本次登录时间：{$log.create_time|date="Y-m-d H:i:s",###}</p>
+	<p>登录次数：<?php echo $this->count; ?> </p>
+	<p>本次登录IP：<?php echo $this->log['ip']; ?>  本次登录时间：<?php echo date('Y-m-d H:i:s',$this->log['in_time']); ?></p>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -20,49 +20,43 @@ include dirname(__FILE__).'/../common/_meta.php';
 				<th>留言库</th>
 				<th>会员</th>
 				<th>评论库</th>
-				<th>产品库</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class="text-c">
 				<td>总数</td>
-				<td>{$w['zong']}</td>
-				<td>{$liu['zong']}</td>
-				<td>{$yong['zong']}</td>
-				<td>{$ping['zong']}</td>
-				<td>0</td>
+				<td><?php echo $this->w['zong']; ?></td>
+				<td><?php echo $this->liu['zong']; ?></td>
+				<td><?php echo $this->yong['zong']; ?></td>
+				<td><?php echo $this->ping['zong']; ?></td>
 			</tr>
 			<tr class="text-c">
 				<td>今日</td>
-				<td>{$w['jin']}</td>
-				<td>{$liu['jin']}</td>
-				<td>{$yong['jin']}</td>
-				<td>{$ping['jin']}</td>
-				<td>0</td>
+				<td><?php echo $this->w['jin']; ?></td>
+				<td><?php echo $this->liu['jin']; ?></td>
+				<td><?php echo $this->yong['jin']; ?></td>
+				<td><?php echo $this->ping['jin']; ?></td>
 			</tr>
 			<tr class="text-c">
 				<td>昨日</td>
-				<td>{$w['zuo']}</td>
-				<td>{$liu['zuo']}</td>
-				<td>{$yong['zuo']}</td>
-				<td>{$ping['zuo']}</td>
-				<td>0</td>
+				<td><?php echo $this->w['zuo']; ?></td>
+				<td><?php echo $this->liu['zuo']; ?></td>
+				<td><?php echo $this->yong['zuo']; ?></td>
+				<td><?php echo $this->ping['zuo']; ?></td>
 			</tr>
 			<tr class="text-c">
 				<td>本周</td>
-				<td>{$w['zhou']}</td>
-				<td>{$liu['zhou']}</td>
-				<td>{$yong['zhou']}</td>
-				<td>{$ping['zhou']}</td>
-				<td>0</td>
+				<td><?php echo $this->w['zhou']; ?></td>
+				<td><?php echo $this->liu['zhou']; ?></td>
+				<td><?php echo $this->yong['zhou']; ?></td>
+				<td><?php echo $this->ping['zhou']; ?></td>
 			</tr>
 			<tr class="text-c">
 				<td>本月</td>
-				<td>{$w['yue']}</td>
-				<td>{$liu['yue']}</td>
-				<td>{$yong['yue']}</td>
-				<td>{$ping['yue']}</td>
-				<td>0</td>
+				<td><?php echo $this->w['yue']; ?></td>
+				<td><?php echo $this->liu['yue']; ?></td>
+				<td><?php echo $this->yong['yue']; ?></td>
+				<td><?php echo $this->ping['yue']; ?></td>
 			</tr>
 		</tbody>
 	</table>

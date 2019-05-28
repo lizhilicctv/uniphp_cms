@@ -30,7 +30,7 @@ class cateController extends uni{
 			//表单验证
 			$checkRules = [
 					'catename'  => ['string', '2,10', '栏目名称为 2 - 10 字符'],
-				'en_name' =>['must', '', '英文名称必须填写'],
+					'en_name' =>['must', '', '英文名称必须填写'],
 				];
 				$checker = new UNI\tools\dataChecker($_POST, $checkRules);
 				$res = $checker->check();
@@ -74,10 +74,10 @@ class cateController extends uni{
 		}
     }
 
-	$this->data=Db::name('cate')->where('id = ?', $this->gets[0])->get();
-	$res=Db::name('cate')->getall();
-	$this->datasort=$this->sort($res);
-      $this->display();
+		$this->data=Db::name('cate')->where('id = ?', $this->gets[0])->get();
+		$res=Db::name('cate')->getall();
+		$this->datasort=$this->sort($res);
+		$this->display();
     }
 	public function ajax()
     {

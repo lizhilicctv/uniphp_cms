@@ -208,10 +208,9 @@ class Db{
 	// ->join('test t','t.id = a.id')
 	// ->order('a.id desc')->getall();
 	public function getAll($fields = null){
-		$this->checkFields("$this->prefix$this->table", $fields);
+		//$this->checkFields("$this->prefix$this->table", $fields); 多表就不能检查了
 		$preArray    = $this->prepare($fields, false);		
 		$this->sql   = $preArray[0];
-		
 		if($this->Page > 0){
 			$page=($this->Page-1) * $this->Rows;
 			$this->sql   .= 'LIMIT '.$page.','.$this->Rows;
@@ -233,8 +232,8 @@ class Db{
 		$this->pretreatment =$this->pdo->prepare($this->sql);
 		$this->pretreatment->execute($where[1]);
 		$return = $this->pretreatment->fetch(\PDO::FETCH_ASSOC);
-		if(empty($return['total'])){return 0;}
 		self::$_instance = null;
+		if(empty($return['total'])){return 0;}
 		return $return['total'];
 	}
 	

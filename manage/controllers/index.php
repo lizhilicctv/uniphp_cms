@@ -9,75 +9,65 @@ class indexController extends uni{
 	
  public function index()
     {
-
        $this->display();
     }
 	//核心页面
 	public function main()
     {
-// 		//文章统计
-// 		$w_zong=Db::name('article')->count();
-// 		$w_jin=Db::name('article')->where('to_days(date_format(from_UNIXTIME(`time`),\'%Y-%m-%d\')) = to_days(now())')->count();
-// 		$w_zuo=Db::query('select count(*) from `lizhili_article` where to_days(date_format(from_UNIXTIME(`time`),\'%Y-%m-%d\')) - to_days(now()) <1 and to_days(date_format(from_UNIXTIME(`time`),\'%Y-%m-%d\')) - to_days(now()) <0;');
-// 		$w_zhou=Db::name('article')->where('YEARWEEK(date_format(from_UNIXTIME(`time`),\'%Y-%m-%d\')) = YEARWEEK(now())')->count();
-// 		$w_yue=Db::name('article')->where('date_format(date_format(from_UNIXTIME(`time`),\'%Y-%m-%d\'), \'%Y%m\') = date_format(curdate() ,\'%Y%m\')')->count();
-// 		
-// 		//留言统计
-// 		$liu_zong=Db::name('message')->count();
-// 		$liu_jin=Db::name('message')->where('to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = to_days(now())')->count();
-//  		$liu_zuo=Db::query('select count(*) from `lizhili_message` where to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <1 and to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <0;');
-//  		$liu_zhou=Db::name('message')->where('YEARWEEK(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = YEARWEEK(now())')->count();
-//  		$liu_yue=Db::name('message')->where('date_format(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\'), \'%Y%m\') = date_format(curdate() ,\'%Y%m\')')->count();
-// 		
-// 		//用户统计
-// 		$yong_zong=Db::name('member')->count();
-// 		$yong_jin=Db::name('member')->where('to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = to_days(now())')->count();
-// 		$yong_zuo=Db::query('select count(*) from `lizhili_member` where to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <1 and to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <0;');
-// 		$yong_zhou=Db::name('member')->where('YEARWEEK(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = YEARWEEK(now())')->count();
-// 		$yong_yue=Db::name('member')->where('date_format(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\'), \'%Y%m\') = date_format(curdate() ,\'%Y%m\')')->count();
-// 		
-// 		//评论统计
-// 		$ping_zong=Db::name('comment')->count();
-// 		$ping_jin=Db::name('comment')->where('to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = to_days(now())')->count();
-// 		$ping_zuo=Db::query('select count(*) from `lizhili_comment` where to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <1 and to_days(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) - to_days(now()) <0;');
-// 		$ping_zhou=Db::name('comment')->where('YEARWEEK(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\')) = YEARWEEK(now())')->count();
-// 		$ping_yue=Db::name('comment')->where('date_format(date_format(from_UNIXTIME(`create_time`),\'%Y-%m-%d\'), \'%Y%m\') = date_format(curdate() ,\'%Y%m\')')->count();
-// 
-// 		$this->assign([
-//             'w'  => [
-// 								'zong'=>$w_zong,
-// 								'jin'=>$w_jin,
-// 								'zuo'=>$w_zuo[0]["count(*)"],
-// 								'zhou'=>$w_zhou,
-// 								'yue'=>$w_yue,
-// 						],
-// 						'liu'  => [
-// 								'zong'=>$liu_zong,
-// 								'jin'=>$liu_jin,
-//  								'zuo'=>$liu_zuo[0]["count(*)"],
-//  								'zhou'=>$liu_zhou,
-//  								'yue'=>$liu_yue,
-// 						],
-// 						'yong'  => [
-// 								'zong'=>$yong_zong,
-// 								'jin'=>$yong_jin,
-// 								'zuo'=>$yong_zuo[0]["count(*)"],
-// 								'zhou'=>$yong_zhou,
-// 								'yue'=>$yong_yue,
-// 						],
-// 						'ping'  => [
-// 								'zong'=>$ping_zong,
-// 								'jin'=>$ping_jin,
-// 								'zuo'=>$ping_zuo[0]["count(*)"],
-// 								'zhou'=>$ping_zhou,
-// 								'yue'=>$ping_yue,
-// 						],
-//         ]);
-// 		
-// 			$log=db('log')->order('id desc')->find();
-// 			$this->assign('log', $log);
-// 			$count1=db('log')->count();
-// 			$this->assign('count1', $count1);
+		//php获取今日开始时间戳和结束时间戳
+		$today_start=mktime(0,0,0,date('m'),date('d'),date('Y'));
+		$today_end=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+		//php获取昨日起始时间戳和结束时间戳
+		$yesterday_start=mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+		$yesterday_end=mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+		//php获取上周起始时间戳和结束时间戳
+		//$lastweek_start=mktime(0,0,0,date('m'),date('d')-date('w')+1-7,date('Y'));
+		//$lastweek_end=mktime(23,59,59,date('m'),date('d')-date('w')+7-7,date('Y'));
+		//php获取本周周起始时间戳和结束时间戳
+		$thisweek_start=mktime(0,0,0,date('m'),date('d')-date('w')+1,date('Y'));
+		$thisweek_end=mktime(23,59,59,date('m'),date('d')-date('w')+7,date('Y'));
+		//php获取本月起始时间戳和结束时间戳
+		$thismonth_start=mktime(0,0,0,date('m'),1,date('Y'));
+		$thismonth_end=mktime(23,59,59,date('m'),date('t'),date('Y'));
+		//文章统计
+		$this->w=[
+			'zong'=>Db::name('article')->count(),
+			'jin'=>Db::name('article')->where('up_time <= ? and up_time > ?',[$today_end,$today_start])->count(),
+			'zuo'=>Db::name('article')->where('up_time <= ? and up_time > ?',[$yesterday_end,$yesterday_start])->count(),
+			'zhou'=>Db::name('article')->where('up_time <= ? and up_time > ?',[$thisweek_end,$thisweek_start])->count(),
+			'yue'=>Db::name('article')->where('up_time <= ? and up_time > ?',[$thismonth_end,$thismonth_start])->count(),
+		];
+		
+		//留言统计
+		$this->liu=[
+			'zong'=>Db::name('message')->count(),
+			'jin'=>Db::name('message')->where('up_time <= ? and up_time > ?',[$today_end,$today_start])->count(),
+			'zuo'=>Db::name('message')->where('up_time <= ? and up_time > ?',[$yesterday_end,$yesterday_start])->count(),
+			'zhou'=>Db::name('message')->where('up_time <= ? and up_time > ?',[$thisweek_end,$thisweek_start])->count(),
+			'yue'=>Db::name('message')->where('up_time <= ? and up_time > ?',[$thismonth_end,$thismonth_start])->count(),
+		];
+		
+		//用户统计
+		$this->yong=[
+			'zong' =>Db::name('member')->count(),
+			'jin' =>Db::name('member')->where('up_time <= ? and up_time > ?',[$today_end,$today_start])->count(),
+			'zuo' =>Db::name('member')->where('up_time <= ? and up_time > ?',[$yesterday_end,$yesterday_start])->count(),
+			'zhou' =>Db::name('member')->where('up_time <= ? and up_time > ?',[$thisweek_end,$thisweek_start])->count(),
+			'yue' =>Db::name('member')->where('up_time <= ? and up_time > ?',[$thismonth_end,$thismonth_start])->count(),
+		];
+	
+		//评论统计
+		$this->ping=[
+			'zong' =>Db::name('comment')->count(),
+			'jin' =>Db::name('comment')->where('up_time <= ? and up_time > ?',[$today_end,$today_start])->count(),
+			'zuo' =>Db::name('comment')->where('up_time <= ? and up_time > ?',[$yesterday_end,$yesterday_start])->count(),
+			'zhou' =>Db::name('comment')->where('up_time <= ? and up_time > ?',[$thisweek_end,$thisweek_start])->count(),
+			'yue' =>Db::name('comment')->where('up_time <= ? and up_time > ?',[$thismonth_end,$thismonth_start])->count(),
+		];
+		
+
+		$this->log=Db::name('log')->order('id desc')->get();
+		$this->count=Db::name('admin')->count();
 		
       $this->display();
 	   

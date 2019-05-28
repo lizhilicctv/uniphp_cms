@@ -32,14 +32,14 @@
 						</ul>
 					</li>
 					<li id="Hui-msg">
-						<a href="#" title="消息"><span class="badge badge-danger" id="lizhili_ping">评</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
+						<a href="#" title="消息"><span class="badge badge-danger" id="lizhili_ping">评<?php echo getSession('comment_header'); ?></span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
 						
 						
 					</li>
 					
 					<li id="Hui-msg">
 						
-						<a href="#" title="消息"><span class="badge badge-danger" id="lizhili_liu">留</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
+						<a href="#" title="消息"><span class="badge badge-danger" id="lizhili_liu">留<?php echo getSession('message_header'); ?></span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a>
 					</li>
 					<li id="Hui-skin" class="dropDown right dropDown_hover">
 						<a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>

@@ -9,116 +9,127 @@ class adminController extends uni{
 	
 	public function index()
     {
-    	if(request()->isPost()){
-    		$data=input('post.');		
-			$min= strtotime($data['datemin']);
-			$max= strtotime($data['datemax']);
-			$data=Db::name('admin')
-				    ->whereOr('username','like','%'.$data['key'].'%')
-				    ->order('id','ASC')->paginate(10);
-			$this->assign('data',$data);
+    	if(UNi_POST){
+			$this->data=Db::name('admin')
+						  ->alias('a')
+						  ->join('auth_group w','a.role = w.id')
+						  ->where('username like ?','%'.$_POST['key'].'%')
+						  ->paginate(10)->fields('a.*,w.title');
     	}else{
-			$data=Db::table('lizhili_admin')
-			->alias('a')
-			->join('auth_group w','a.role = w.id', 'LEFT')
-			->order('a.id','ASC')->field( 'a.id,username,w.title,create_time,update_time,mark,isopen' )->paginate(10);
-			$this->assign('data',$data);
+			$this->data=Db::name('admin')
+						  ->alias('a')
+						  ->join('auth_group w','a.role = w.id')
+						  ->paginate(10)->fields('a.*,w.title');
     	}
-		$count1=db('admin')->count();
-		$this->assign('count1', $count1);
-    	return $this->fetch();
+		$this->count=Db::name('admin')->count();
+    	$this->display();
     }
 	 public function add()
     {
-    	$admin=new Adminmodel();
-
-		if(request()->isPost()){
-    		$data=input('post.');
-			$validate = Loader::validate('Admin');
-			if(!$validate->check($data)){
-				$this->error($validate->getError());
+		if(UNi_POST){
+    		$checkRules = [
+    				'username'  => [
+    					['must', '', '用户名必须填写'],
+    					['string', '4,16', '用户名为 4 - 16 字符']
+    				],
+    				'role' =>['must', '', '用户角色必须填写'],
+					'password' =>['must', '', '用户密码必须填写']
+    			];
+				
+			$checker = new UNI\tools\dataChecker($_POST, $checkRules);
+			if(!$checker->check()){
+				$this->error($checker->error);	
 			}
-			$info=$admin->add($data);
-			if($info == 1){
-				return $this->success('添加成功',url('admin/index',['st'=>1]));
+			if($_POST['password'] != $_POST['password2']){
+				$this->error('两次密码不一致');	
+			}
+			$info=[
+				'username'=>$_POST['username'],
+				'password'=>md5(substr(md5($_POST['password']),0,25).'lizhili'),
+				'role'=>$_POST['role'],
+				'mark'=>$_POST['mark'],
+			];
+			
+			$info=Db::name('admin')->add($info);
+			if($info){
+				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
+				$this->success('添加成功',2);
 			}else{
-				$this->error('添加失败了');
+				$this->error('添加失败');
 			}
     	}
-		$res=db('auth_group')->select();
-		$this->assign('res',$res);
-    	return $this->fetch();
+		$this->data=Db::name('auth_group')->getall();
+		$this->display();
     }
 	public function ajax()
     {
-    	$data=input('param.');
-		if($data['type']=='admin_start'){
-			if(db('admin')->where('id',$data['id'])->setField('isopen',1)){
-				return 1;//修改成功返回1
+    	if($_POST['type']=='admin_all'){
+    		foreach($_POST['id'] as $v){
+    			Db::name('admin')->where('id = ?',$v)->del();
+    		}
+    		json(1);//修改成功返回1
+    	}
+    	if($_POST['type']=='admin_del'){
+			if(Db::name('admin')->where('id = ?',$_POST['id'])->del()){
+				json(1);//修改成功返回1
 			}else{
-				return 0;
+				json(0);
 			}
-		}
-       	if($data['type']=='admin_stop' and $data['id'] != 1){
-			if(db('admin')->where('id',$data['id'])->setField('isopen',0)){
-				return 1;//修改成功返回1
-			}else{
-				return 0;
-			}
-		}
-		if($data['type']=='admin_del' and $data['id'] != 1){
-			if(db('admin')->delete($data['id'])){
-				return 1;//修改成功返回1
-			}else{
-				return 0;
-			}
-		}
-		if($data['type']=='admin_all'){
-			if(in_array("1", $data['id'])){
-				return 0;
-			}
-			if(db('admin')->delete($data['id'])){
-				return 1;//修改成功返回1
-			}else{
-				return 0;
-			}
-		}
-		return 0;
+    	}
+    	if($_POST['type']=='admin_start'){
+    		if(Db::name('admin')->where('id = ?',$_POST['id'])->update(['isopen'=>1])){
+    			json(1);//修改成功返回1
+    		}else{
+    			json(0);
+    		}
+    	}
+    	if($_POST['type']=='admin_stop'){
+    		if(Db::name('admin')->where('id = ?',$_POST['id'])->update(['isopen'=>0])){
+    			json(1);//修改成功返回1
+    		}else{
+    			json(0);
+    		}
+    	}
+    	json(0);
     }
 	public function edit()
     {
-    	if(request()->isPost()){
-    		$data=input('post.');
+    	if(UNi_POST){
+    		$checkRules = [
+    				'username'  => [
+    					['must', '', '用户名必须填写'],
+    					['string', '4,16', '用户名为 4 - 16 字符']
+    				],
+    			];
+    			
+    		$checker = new UNI\tools\dataChecker($_POST, $checkRules);
+    		if(!$checker->check()){
+    			$this->error($checker->error);	
+    		}
 
-			$validate = Loader::validate('Admin');
-			if(!$validate->scene('edit')->check($data)){
-				$this->error($validate->getError());
+			//规整数据
+			$info['username']=$_POST['username'];
+			if(!!$_POST['password']){
+				$info['password']=md5(substr(md5($_POST['password']),0,25).'lizhili');
 			}
-			$info=[
-				'id'=>$data['id'],
-				'username'=>$data['username'],
-				'mark'=>$data['mark'],
-			];
-			$pass=db('admin')->where('id',$data['id'])->field('password')->find();
-			if($data['password']!=''){
-				$info['password']=md5($data['password']);
-			}else{
-				$info['password']=$pass['password'];
+			if(isset($_POST['mark'])){
+				$info['mark']=$_POST['mark'];
 			}
-			if(db('admin')->update($info)){
-						
-				return $this->success('修改成功',url('admin/index',['st'=>1]));
+			if(isset($_POST['role'])){
+				$info['role']=$_POST['role'];
+			}
+
+			$res=Db::name('admin')->where('id = ?',$_POST['id'])->update($info);
+			if($res){
+				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
+				$this->success('修改成功',2);
 			}else{
-				$this->error('修改失败了');
+				$this->error('修改失败');
 			}
     	}
-		$cid=input('id');
-		$data=db('admin')->where('id',$cid)->field('id,username,mark,role')->find();
-		$this->assign('data',$data);
-		
-		$res=db('auth_group')->select();
-		$this->assign('res',$res);
-       return $this->fetch('edit');
+		$this->data=Db::name('admin')->where('id = ?', $this->gets[0])->get();
+		$this->res=Db::name('auth_group')->getall();
+		$this->display();
     }
 	
 	//清除缓存
