@@ -1,8 +1,8 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 <title>添加管理员 - 管理员管理 - 河北灵鹿科技有限公司</title>
-<meta name="keywords" content="河北灵鹿科技有限公司,lizhilimaster@163.com">
-<meta name="description" content="河北灵鹿科技有限公司,lizhilimaster@163.com">
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 <div class="page-container">

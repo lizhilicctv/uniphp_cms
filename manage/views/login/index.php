@@ -54,7 +54,7 @@
     </form>
   </div>
 </div>
-<div class="footer">本后台系统由<a href="http://www.linglukeji.com/" target="_blank" title="河北灵鹿科技有限公司" style="color: white;">河北灵鹿科技有限公司</a>提供技术支持</div>
+<div class="footer">本后台系统由<a href="mailto:lizhilimaster@163.com" target="_blank" title="lizhili">李志立</a>提供技术支持</div>
 <script type="text/javascript" src="<?php echo APP_CONFIG['__manage__']; ?>lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<?php echo APP_CONFIG['__manage__']; ?>static/h-ui/js/H-ui.min.js"></script>
 </body>

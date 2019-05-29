@@ -44,8 +44,12 @@
 						echo($url);
 					}
 				}else if($code==0){
-					$url=$url ?? 'javascript:history.back(-1);';
-					echo($url);
+					if($url==2){
+						echo('javascript:parent.location.reload()');
+					}else{
+						$url=$url ?? 'javascript:history.back(-1);';
+						echo($url);
+					}
 				}
 			?>">直接跳转</a>
         </p>

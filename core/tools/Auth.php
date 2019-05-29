@@ -11,7 +11,6 @@ class Auth{
         'auth_user'         => 'member'             // 用户信息表
     );
     public function __construct() {
-        
     }
     /**
      * 检查权限
@@ -32,6 +31,7 @@ class Auth{
                 $name = array($name);
             }
         }
+		
         $list = array(); //保存验证通过的规则名
         if ($mode=='url') {
             $REQUEST = unserialize( strtolower(serialize($_REQUEST)) );
@@ -43,7 +43,6 @@ class Auth{
 			if(strpos($query[0],"_")){
 				$query[0]=str_replace("_","",$query[0]);
 			}
-			
 			if($query[1]=='all'){
 				if($query[0]==$name[0]){
 					return true;
@@ -98,9 +97,7 @@ class Auth{
             ->join("auth_group g", "g.id=a.group_id")
             ->where("a.uid= ? and g.status=?",[$uid ,1])
             ->getall('a.uid,a.group_id,g.title,g.rules');
-			
         $groups[$uid] = $user_groups ? $user_groups : array();
-		
         return $groups[$uid];
     }
     /**
@@ -124,13 +121,14 @@ class Auth{
             $ids = array_merge($ids, explode(',', trim($g['rules'], ',')));
         }
         $ids = array_unique($ids);
+		
         if (empty($ids)) {
             $_authList[$uid.$t] = array();
             return array();
         }
 		$ids=implode(",", $ids);
         //读取用户组所有权限规则
-        $rules = Db::name($this->_config['auth_rule'])->where('id in ? and type = ? and status = ?',[$ids,$type,1])->getall('condition,name');
+        $rules = Db::name($this->_config['auth_rule'])->where('id in ('.$ids.') and type = ? and status = ?',[$type,1])->getall('tiao,name');
         //循环规则，判断结果。
         $authList = array();   //
         foreach ($rules as $rule) {
@@ -152,7 +150,6 @@ class Auth{
             //规则列表结果保存到session
             $_SESSION['_auth_list_'.$uid.$t]=$authList;
         }
-		
         return array_unique($authList);
     }
     /**

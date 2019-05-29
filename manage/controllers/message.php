@@ -27,6 +27,12 @@ class messageController extends uni{
 			$info=Db::name('message')->where('id = ?',$_POST['id'])->update($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
+				$liu=Db::name('message')->where('isopen = ?','0')->count();
+				if($liu!=0){
+					echo '<script>parent.parent.document.getElementById("lizhili_liu").innerHTML="留',$liu,'"</script>';
+				}else{
+					echo '<script>parent.parent.document.getElementById("lizhili_liu").innerHTML="留"</script>';
+				}
 				$this->success('修改成功',2);
 			}else{
 				$this->error('修改失败');

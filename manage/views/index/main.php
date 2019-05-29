@@ -3,10 +3,12 @@
 include dirname(__FILE__).'/../common/_meta.php';
 ?>
 <title>我的桌面</title>
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 <div class="page-container">
-	<p class="f-20 text-success">欢迎使用<b>后台管理系统</b> <span class="f-14">v0.1</span>！</p>
+	<p class="f-20 text-success">欢迎使用<b>后台管理系统</b> <span class="f-14">v1.0</span>！</p>
 	<p>登录次数：<?php echo $this->count; ?> </p>
 	<p>本次登录IP：<?php echo $this->log['ip']; ?>  本次登录时间：<?php echo date('Y-m-d H:i:s',$this->log['in_time']); ?></p>
 	<table class="table table-border table-bordered table-bg">
@@ -65,6 +67,7 @@ include dirname(__FILE__).'/../common/_meta.php';
 		<div id="bang">
 			<h2>使用说明</h2>
 			<p style="text-indent: 20px;">感谢您一年来对我们的支持和包容。为了更好的服务大家，在2018年9月份，我们全新发布了后台管理系统版本。我们的发布离不开广大用户给出的建议和意见。我们整合了更多优秀插件；优化了框架的体积。当然相比目前行业其他管理系统还有很多不足。但初心不改，实实在在把事做好，做用户最喜欢的框架。更好为客户服务。</p>
+			<p style="text-indent: 20px;">2018年我们进行了五个大版本的更新，添加了商城，论坛，订货等等系统。2019年六月我们从新开始用自己编写的框架，重新搭建了cms，速度提升了10倍。希望我们的cms可以给您带来帮助。由于工作量大，难免有没有考虑的地方。欢迎您反馈！</p>
 			<p class="red">注：扫描二维码，可以添加解决疑问专家的QQ/微信，添加好友时请您写明疑问，以便解决您的问题</p>
 			<div class="fen">
 				<span>疑问QQ群：99078439</span>
@@ -80,8 +83,8 @@ include dirname(__FILE__).'/../common/_meta.php';
 <footer class="footer mt-20">
 	<div class="container">
 		<p>感谢hui0、jQuery、layer、laypage、Validform、UEditor、My97DatePicker、iconfont、Datatables、WebUploaded、icheck、highcharts、bootstrap-Switch提供技术支持<br>
-			Copyright &copy;2015-2018 标天计算机 All Rights Reserved.<br>
-			本后台系统由<a href="http://www.biaotian.net/" target="_blank" title="标天计算机">标天计算机</a>提供技术支持</p>
+			Copyright &copy;2015-2018 李志立 All Rights Reserved.<br>
+			本后台系统由<a href="mailto:lizhilimaster@163.com" target="_blank" title="lizhili">李志立</a>提供技术支持</p>
 	</div>
 </footer>
 <?php 

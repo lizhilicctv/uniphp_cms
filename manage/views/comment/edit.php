@@ -1,8 +1,8 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 <title>编辑评论</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 <article class="page-container">
@@ -11,7 +11,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo $this->data['username']; ?></p>
+				<input type="text"  disabled="disabled" class="input-text" value="<?php echo $this->data['username']; ?>" >
 			</div>
 		</div>
 		<div class="row cl">
@@ -23,49 +23,38 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>加入时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo date('Y-m-d H:i:s',$this->data['in_time']); ?></p>
+				<input  disabled="disabled" type="text" class="input-text" value="<?php echo date('Y-m-d H:i:s',$this->data['in_time']); ?>" >
 			</div>
 		</div>
 
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">当前状态：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				<?php
-					switch ($this->data['isopen'])
-					{
-						case 1:
-							echo "<span class='label label-success radius'>已展示</span>";
-							break;
-						case 0:
-							echo "<span class='label label-default radius'>未展示</span>";
-							break;
-						default:
-							echo "<span class='label label-default radius'>未审核</span>";
-					}
-				?>
-			</div>
-		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">修改状态：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-				<div class="radio-box">
-					<input name="isopen" type="radio" id="sex-1" value="1" <?php if($this->data['isopen'] ==1) { echo 'checked';} ?>>
-					<label for="sex-1">展示</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-2" value="0" name="isopen" <?php if($this->data['isopen'] ==0) { echo 'checked';} ?>>
-					<label for="sex-2">不展示</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="sex-3" value="-1" name="isopen" <?php if($this->data['isopen'] ==-1) { echo 'checked';} ?>>
-					<label for="sex-3">未审核</label>
-				</div>
+			
+			
+			<div class="radio-box">
+				<div class="iradio-blue  <?php if($this->data['isopen'] ==1) { echo 'checked';} ?> "><input value="1" type="radio" id="sex-1" name="isopen" <?php if($this->data['isopen'] ==1) { echo 'checked';} ?>  style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+				<label for="sex-1" class="">展示</label>
+			</div>
+			
+			<div class="radio-box">
+				<div class="iradio-blue  <?php if($this->data['isopen'] ==0) { echo 'checked';} ?> "  ><input value="0" type="radio" id="sex-0" name="isopen"  <?php if($this->data['isopen'] ==0) { echo 'checked';} ?>  style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+				<label for="sex-0" class="">不展示</label>
+			</div>
+			
+			<div class="radio-box">
+				<div class="iradio-blue  <?php if($this->data['isopen'] ==-1) { echo 'checked';} ?> " ><input value="-1" type="radio" id="sex-3" name="isopen"  <?php if($this->data['isopen'] ==-1) { echo 'checked';} ?>  style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+				<label for="sex-3" class="">未审核</label>
+			</div>
+			
+			
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">详细内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo $this->data['content']; ?></p>
+				<textarea  class="textarea" disabled="disabled"  dragonfly="true" ><?php echo $this->data['content']; ?></textarea>
 			</div>
 		</div>
 		
@@ -114,6 +103,14 @@ $(function(){
 		},
 		
 	});
+	
+});
+
+$('.iradio-blue').click(function (){
+	$('.iradio-blue').removeClass('checked');
+	$(this).addClass('checked');
+	$(".iradio-blue input").removeAttr("checked");
+    $(this).find('input').prop('checked',true);    
 	
 });
 </script> 

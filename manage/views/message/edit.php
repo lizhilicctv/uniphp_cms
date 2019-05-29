@@ -1,8 +1,8 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 <title>查看留言</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 <article class="page-container">
@@ -11,55 +11,47 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo $this->data['title']; ?></p>
+				<input type="text"  disabled="disabled" class="input-text" value="<?php echo $this->data['title']; ?>" >
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<p><?php echo $this->data['name']; ?></p>
+				<input type="text"  disabled="disabled" class="input-text" value="<?php echo $this->data['name']; ?>" >
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo $this->data['phone']; ?></p>
+				<input type="text"  disabled="disabled" class="input-text" value="<?php echo $this->data['phone']; ?>" >
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo date('Y-m-d H:i:s',$this->data['in_time']); ?></p>
+				<input type="text"  disabled="disabled" class="input-text" value="<?php echo date('Y-m-d H:i:s',$this->data['in_time']); ?>" >
 			</div>
 		</div>
 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">当前状态：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				<?php if($this->data['isopen'] == 1){ ?>
-					<span class="label label-success radius">已查看</span>
-				<?php }else{ ?>
-					<span class="label label-default radius">未查看</span>
-				<?php } ?>
-			</div>
-		</div>
-		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">修改状态：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
+			
 				<div class="radio-box">
-					<input name="isopen" type="radio" id="sex-1" value="1" <?php if($this->data['isopen'] ==1) { echo 'checked';} ?>>
-					<label for="sex-1">已经查看</label>
+					<div class="iradio-blue  <?php if($this->data['isopen'] ==1) { echo 'checked';} ?> "><input value="1" type="radio" id="sex-1" name="isopen" <?php if($this->data['isopen'] ==1) { echo 'checked';} ?>  style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+					<label for="sex-1" class="">已经查看</label>
 				</div>
+				
 				<div class="radio-box">
-					<input type="radio" id="sex-2" value="0" name="isopen" <?php if($this->data['isopen'] ==0) { echo 'checked';} ?>>
-					<label for="sex-2">以后处理</label>
+					<div class="iradio-blue  <?php if($this->data['isopen'] ==0) { echo 'checked';} ?> "  ><input value="0" type="radio" id="sex-0" name="isopen"  <?php if($this->data['isopen'] ==0) { echo 'checked';} ?>  style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+					<label for="sex-0" class="">以后处理</label>
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">详细内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<p><?php echo $this->data['neirong']; ?></p>
+				<textarea  class="textarea" disabled="disabled"  dragonfly="true" ><?php echo $this->data['neirong']; ?></textarea>
 			</div>
 		</div>
 		<div class="row cl">
@@ -102,6 +94,13 @@ $(function(){
 			}
 		}
 	});
+});
+$('.iradio-blue').click(function (){
+	$('.iradio-blue').removeClass('checked');
+	$(this).addClass('checked');
+	$(".iradio-blue input").removeAttr("checked");
+    $(this).find('input').prop('checked',true);    
+	
 });
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

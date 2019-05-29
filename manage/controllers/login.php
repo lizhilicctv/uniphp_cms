@@ -65,16 +65,6 @@ class loginController extends uni{
 	    unset($cips);
 	    return $cip;
 	}
-	
-	 public function log(){
-	 	if(UNi_POST){
-			$this->data=Db::name('log')->where('username like ?','%'.$_POST['key'].'%')->paginate(15)->order('id desc')->fields();		
-		}else{
-			 $this->data=Db::name('log')->paginate(15)->order('id desc')->fields();
-		}
-		$this->count=Db::name('log')->count();
-	 	$this->display();
-	 }
 	 //绘制验证码
     public function vcode(){
         $vcode = new uni\tools\verifyCode(150, 40, 4, 1);
@@ -83,23 +73,4 @@ class loginController extends uni{
         //绘制验证码
         $vcode->draw();    
     }
-	 
-	 
-	public function ajax()
-	{
-		if($_POST['type']=='log_all'){
-			foreach($_POST['id'] as $v){
-				Db::name('log')->where('id = ?',$v)->del();
-			}
-			json(1);//修改成功返回1
-		}
-		if($_POST['type']=='log_del'){
-			if(Db::name('log')->where('id = ?',$_POST['id'])->del()){
-				json(1);//修改成功返回1
-			}else{
-				json(0);
-			}
-		}
-		json(0);
-	}
 }

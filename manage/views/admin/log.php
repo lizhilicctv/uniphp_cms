@@ -1,6 +1,8 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 <title>系统日志</title>
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
@@ -60,7 +62,7 @@
 function article_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.post(
-			"<?php echo u('login','ajax');?>",
+			"<?php echo u('admin','ajax');?>",
 		{
 			id:id,
 			type:'log_del',
@@ -86,7 +88,7 @@ function data_del(){
    }else{
 	   	layer.confirm('确认要删除吗？',function(index){
 			$.post(
-				"<?php echo u('login','ajax');?>",
+				"<?php echo u('admin','ajax');?>",
 			{
 				id:arr,
 				type:'log_all',

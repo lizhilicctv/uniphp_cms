@@ -2,6 +2,11 @@
 use UNI\tools\Db;
 class AuthRuleController extends uni
 {
+	//前置操作
+	public function __init(){
+		parent::__init();
+		model('manage')->isLogin(); //自动执行 构造方法
+	}
     public function index()
     {
     	if(isset($this->gets[0])){

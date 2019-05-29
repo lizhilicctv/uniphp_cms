@@ -90,6 +90,19 @@ class adminController extends uni{
     			json(0);
     		}
     	}
+		if($_POST['type']=='log_all'){
+			foreach($_POST['id'] as $v){
+				Db::name('log')->where('id = ?',$v)->del();
+			}
+			json(1);//修改成功返回1
+		}
+		if($_POST['type']=='log_del'){
+			if(Db::name('log')->where('id = ?',$_POST['id'])->del()){
+				json(1);//修改成功返回1
+			}else{
+				json(0);
+			}
+		}
     	json(0);
     }
 	public function edit()
@@ -140,5 +153,15 @@ class adminController extends uni{
 		}else{
 			$this->error('清除缓存失败了');
 		}
+	}
+	//日志操作
+	 public function log(){
+		if(UNi_POST){
+				$this->data=Db::name('log')->where('username like ?','%'.$_POST['key'].'%')->paginate(15)->order('id desc')->fields();		
+			}else{
+				 $this->data=Db::name('log')->paginate(15)->order('id desc')->fields();
+			}
+			$this->count=Db::name('log')->count();
+		$this->display();
 	}
 }

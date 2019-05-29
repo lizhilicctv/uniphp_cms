@@ -1,8 +1,8 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
 <title>资讯列表 - 资讯管理</title>
-<meta name="keywords" content="河北灵鹿科技有限公司">
-<meta name="description" content="河北灵鹿科技有限公司">
+<meta name="keywords" content="uniphp">
+<meta name="description" content="uniphp,轻量级php框架.">
 </head>
 <body>
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页

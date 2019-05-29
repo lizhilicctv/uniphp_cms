@@ -46,7 +46,7 @@
 			</dd>
 		</dl>
 		<dl id="menu-admin">
-			<dt><a data-href="<?php echo u('login','log'); ?>" data-title="登陆日志" href="javascript:void(0)"><i class="Hui-iconfont">&#xe645;</i> 登陆日志</a></dt>
+			<dt><a data-href="<?php echo u('admin','log'); ?>" data-title="登陆日志" href="javascript:void(0)"><i class="Hui-iconfont">&#xe645;</i> 登陆日志</a></dt>
 		</dl>
 		<dl id="menu-admin">
 			<dt><a data-href="<?php echo u('admin','cahe'); ?>" data-title="清除缓存志" href="javascript:void(0)"><i class="Hui-iconfont">&#xe60b;</i> 清除缓存志</a></dt>

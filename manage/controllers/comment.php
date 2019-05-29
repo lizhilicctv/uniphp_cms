@@ -31,6 +31,15 @@ class commentController extends uni{
 		if(UNi_POST){
 			$info=Db::name('comment')->where('id = ?',$_POST['id'])->update($_POST);
 			if($info){
+				
+				$liu=Db::name('comment')->where('isopen = ?','-1')->count();
+				if($liu!=0){
+					echo '<script>parent.parent.document.getElementById("lizhili_ping").innerHTML="评',$liu,'"</script>';
+				}else{
+					echo '<script>parent.parent.document.getElementById("lizhili_ping").innerHTML="评"</script>';
+				}
+
+				
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
 				$this->success('修改成功',2);
 			}else{
