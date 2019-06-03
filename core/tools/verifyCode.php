@@ -35,7 +35,7 @@ class verifyCode{
         $this->img = imagecreatetruecolor($this->width,$this->height);
     }
     
-    public function draw() {
+    public function draw() { //这样需要调整角度
         $this->setChars();
         setSession($this->sessionName, $this->securityCode);
         $bgColor = imagecolorallocate($this->img,$this->bgcolor[0],$this->bgcolor[1],$this->bgcolor[2]);

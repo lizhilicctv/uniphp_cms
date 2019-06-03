@@ -8,9 +8,10 @@ class indexController extends uni{
 	
 	
 	public function index(){
-		//dump(!!cache('wo','lllll说的是当时的士大夫史蒂夫2222'));
-		//dump(cache('wo',null));
-		cache('rm_all');
+		cache('kk',"111");
+		//cache('rm_all');
+		dump(cache('kk'));
+		// 
 	}
 	public function wo(){
 		$this->res= Db::name('test')
