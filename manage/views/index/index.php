@@ -1,6 +1,6 @@
 <?php if(!defined('UNI_V')){exit;}?>
 <?php include dirname(__FILE__).'/../common/_meta.php'; ?>
-<title>网站名称</title>
+<title>网站管理后台--李志立</title>
 <meta name="keywords" content="uniphp">
 <meta name="description" content="uniphp,轻量级php框架.">
 </head>

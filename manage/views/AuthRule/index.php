@@ -70,6 +70,9 @@
 		margin: 0 5px;
 		float: left;
 		text-decoration: none;
+		background: #88c5f4;
+		color: #FFFFFF;
+		border-radius: 5px;
 	}
 	#lizhi12 a:hover{
 		background: #4898D5;
