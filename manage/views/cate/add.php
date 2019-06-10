@@ -70,6 +70,16 @@
 					</div>
 				</div>
 				<div class="row cl">
+					<label class="form-label col-xs-3 col-sm-2">
+						指定模版文件：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" value="" placeholder="" id="template" name="template"  style="width: 30%;">
+						<span style="margin-left: 30px; color: #333333;">不指定，会调用默认模版</span>
+					</div>
+					<div class="col-3">
+					</div>
+				</div>
+				<div class="row cl">
 					<label class="form-label col-xs-3 col-sm-2">栏目描述：</label>
 					<div class="formControls col-xs-8 col-sm-9">
 						<textarea name="mark" id="mark" cols="" rows="" class="textarea"  placeholder="说点什么，请输入..." onKeyUp="textlength()"></textarea>

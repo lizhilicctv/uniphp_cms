@@ -52,6 +52,8 @@ class articleController extends uni{
 			}
 			$_POST['state']= isset($_POST['state']) ? 1 : 0 ;
 			
+			$_POST['keyword']=str_replace('，',',',$_POST['keyword']);
+			
 			$info=Db::name('article')->add($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
@@ -92,7 +94,7 @@ class articleController extends uni{
 				$_POST['desc']=mb_substr(strip_tags(htmlspecialchars_decode($_POST['editor'])),0,200).'...';
 			}
 			$_POST['state']= isset($_POST['state']) ? 1 : 0 ;
-			
+			$_POST['keyword']=str_replace('，',',',$_POST['keyword']);
 			$info=Db::name('article')->where('id = ?',$_POST['id'])->update($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';

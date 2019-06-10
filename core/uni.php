@@ -49,9 +49,15 @@ class uni{
 		if(!empty($this->gets)){$this->gets = str_replace(array('<','>', '"', "'"),array('&lt;','&gt;', '&quot;',''), $this->gets);}
 	}
 	public function index(){}
-	public function display($tplName = null){	
-		$tplUrl = is_null($tplName) ? UNI_PATH.'/'.UNI_VIEW.'/'.UNI_C.'/'.UNI_M.'.php' : UNI_PATH.'/'.UNI_VIEW.'/'.UNI_C.'/'.$tplName;
-		if(is_file($tplUrl)){include($tplUrl);}else{die("视图模版不存在");}
+	public function display($tplName = null,$type=false){	
+		if($type){
+			$tplUrl = UNI_PATH.'/'.UNI_VIEW.'/'.$tplName;
+			if(is_file($tplUrl)){include($tplUrl);}else{die("视图模版不存在");}
+		}else{
+			$tplUrl = is_null($tplName) ? UNI_PATH.'/'.UNI_VIEW.'/'.UNI_C.'/'.UNI_M.'.php' : UNI_PATH.'/'.UNI_VIEW.'/'.UNI_C.'/'.$tplName;
+			if(is_file($tplUrl)){include($tplUrl);}else{die("视图模版不存在");}
+		}
+		die;
 	}
 	public function success($msg='',$url='',$wait=3,$code=1){	
 		$this->gets=['msg'=>$msg,'url'=>$url,'wait'=>$wait,'code'=>$code];
@@ -221,7 +227,6 @@ try{
 	define('UNI_C', $controllerName);
 	$controllerName = $controllerName.'Controller';
 	$controller = new $controllerName; //实例化类
-	
 	if(!$controller instanceof uni){throw new Exception('必须继承uni');} //判断有没有继承类
 	$methodName = $router[1]?? 'index';//获取方法
 	$res  = preg_match($mode, $methodName);//方法必须为字母和数字

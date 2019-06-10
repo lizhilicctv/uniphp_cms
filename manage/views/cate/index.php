@@ -24,7 +24,8 @@
 							<th width="60">英文名称</th>
 							<th width="60">栏目类型</th>
 							<th width="80">栏目关键字</th>
-							<th width="180">栏目备注</th>
+							<th width="80">模版文件</th>
+							<th width="110">栏目备注</th>
 							<th width="60">操作</th>
 						</tr>
 					</thead>
@@ -55,6 +56,7 @@
 								?>
 							</td>
 							<td><?php echo $v['keyword']; ?></td>
+							<td><?php echo $v['template'] ?? '没有指定文件'; ?></td>
 							<td><?php echo $v['mark']; ?></td>
 							<td class="f-14"><a title="编辑" href="javascript:;" onclick="system_category_edit('栏目编辑','<?php echo u('cate','edit',$v['id']) ?>','1','700','480')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="system_category_del(this,<?php echo $v['id']; ?>)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 						</tr>

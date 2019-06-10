@@ -1,6 +1,6 @@
 <?php
 use UNI\tools\Db;
-class indexController extends uni{
+class messageController extends uni{
 	public function __init(){
 		parent::__init();
 	}

@@ -11,12 +11,11 @@ class cateController extends uni{
 	public function index()
     {
 	  if(UNi_POST){
-		  $res=Db::name('cate')->where('catename like ?', '%'.$_POST['key'].'%')->order('sort asc')->getall();
+		  $res=Db::name('cate')->where('catename like ?', '%'.$_POST['key'].'%')->order('sort asc,id asc')->getall();
 		  $this->datasort=$this->sort($res);
 	  }else{
-		  $res=Db::name('cate')->order('sort asc')->getall();
+		  $res=Db::name('cate')->order('sort asc,id asc')->getall();
 		  $this->datasort=$this->sort($res);
-		  
 	  }
 	  
 	  $this->count=Db::name('cate')->count();
@@ -26,18 +25,17 @@ class cateController extends uni{
 	
 	public function add()
     {
-    	if(UNi_POST){
+    	if(UNi_POST){	
 			//表单验证
 			$checkRules = [
 					'catename'  => ['string', '2,10', '栏目名称为 2 - 10 字符'],
 					'en_name' =>['must', '', '英文名称必须填写'],
 				];
-				$checker = new UNI\tools\dataChecker($_POST, $checkRules);
-				$res = $checker->check();
+			$checker = new UNI\tools\dataChecker($_POST, $checkRules);
+			$res = $checker->check();
 			if(!$res){
 				$this->error($checker->error);	
 			}
-			
 			$info=Db::name('cate')->add($_POST);
 			if($info){
 				//echo '<script>alert("你好，添加成功了！");parent.location.reload()</script>';
